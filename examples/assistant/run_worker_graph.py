@@ -1,6 +1,6 @@
 """Run this project's WorkerGraph end-to-end with a real LLM and a user prompt.
 
-    uv run python e2e_tests/user1/run_worker_graph.py "quanto fa 6 per 7?"
+    uv run python run_worker_graph.py "what is 6 times 7?"
 
 USER code: it uses the framework (agent_platform) but the framework does not depend
 on it. Loads this project's graphs/WorkerGraph.yaml, builds it (loader -> registry ->

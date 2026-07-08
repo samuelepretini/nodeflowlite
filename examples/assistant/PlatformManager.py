@@ -5,7 +5,7 @@ and which channel (the transport); the framework's AbstractPlatformManager owns 
 startup/shutdown lifecycle (graphs up -> serve -> graphs down). The framework
 (agent_platform) does not depend on this folder; only the reverse.
 
-    uv run python e2e_tests/user1/PlatformManager.py        (needs OPENROUTER_API_KEY in .env)
+    uv run python PlatformManager.py        (needs OPENROUTER_API_KEY in .env)
 """
 
 from __future__ import annotations

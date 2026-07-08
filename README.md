@@ -210,11 +210,15 @@ The repo ships example user projects under `examples/` as runnable references
 
 ## Documentation
 
-More in-depth docs live under [`docs/`](./docs/) (currently in Italian):
+More in-depth docs live under [`docs/`](./docs/):
 
-- **Installing a user project** — step-by-step from an empty folder to a running HTTP server.
-- **Architecture** — packages, ports & adapters, the ladder of control.
-- **Startup & execution** — build-time vs per-request classes, with sequence diagrams.
+- [**Installing a user project**](./docs/installing-a-user-project.md) — step-by-step from an empty folder to a running HTTP server.
+- [**Operations manual**](./docs/operations-manual.md) — install, run a graph, read outputs, logging.
+- [**Architecture**](./docs/architecture.md) — packages, ports & adapters, the ladder of control.
+- [**Startup & execution**](./docs/startup-and-execution.md) — build-time vs per-request classes, with sequence diagrams.
+- [**State history**](./docs/state-history.md) — reading a thread's historical state (`history` / `previous` / checkpoints).
+- [**Architectural choices**](./docs/architectural-choices.md) — what the engine imposes vs what we chose.
+- [**Dependency source (dev vs user)**](./docs/dependency-source-dev-vs-user.md) — editable install vs pinned copy.
 
 ---
 

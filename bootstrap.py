@@ -35,7 +35,7 @@ from pathlib import Path
 # CHOICE: default install source = a LOCAL path to the framework checkout, so the
 # bootstrap works offline during development. Alternatives for a real install:
 # "agent-platform" (PyPI) or the git URL. Override per-run via arg/env (see above).
-DEFAULT_SOURCE = "/Users/samuelepretini/git/agentic_platform"
+DEFAULT_SOURCE = "git+https://github.com/samuelepretini/nodeflowlite.git"
 
 HERE = Path(__file__).resolve().parent
 

@@ -7,7 +7,7 @@ is used as a dependency — this folder never edits it.
 
 > A real user keeps a project like this in **their own repo**, with `agent_platform`
 > installed (`uv add agent-platform`). Here it lives inside the framework repo only to
-> ship a runnable example. (`e2e_tests/` is separate: those are the framework's tests.)
+> ship a runnable example.
 
 ## What it shows
 
