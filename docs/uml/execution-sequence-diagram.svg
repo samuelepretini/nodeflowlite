@@ -1,0 +1,183 @@
+<svg viewBox="0 0 1700 900" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>Esecuzione di un grafo (framework attivato) — sequence diagram</title>
+<desc>Sequenza runtime di una chiamata POST /graphs/{name}/invoke: router → GraphExecutor → LangGraphRuntime → motore LangGraph → wrapper _as_node (costruisce NodeContext) → nodo (ctx-first) → router condizionale → risposta. Grafo generico.</desc>
+<defs>
+<marker id="call" markerWidth="11" markerHeight="11" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10 Z" fill="#3A3A38"/></marker>
+<marker id="ret" markerWidth="12" markerHeight="11" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#6E6C66" stroke-width="1.3"/></marker>
+</defs>
+<rect x="0" y="0" width="1700" height="900" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">Esecuzione di un grafo generico (framework già attivato) — sequence diagram</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">Una chiamata <tspan font-weight="700">POST /graphs/{name}/invoke</tspan>: il canale e l'executor sono creati PER-RICHIESTA; il grafo non sa che dietro c'è FastAPI. Linea piena = chiamata, tratteggiata = ritorno.</text>
+
+<!-- ===== lifelines (centers): A90 B260 C430 D600 E770 F940 G1110 H1280 I1450 J1620 ===== -->
+<line x1="90"  y1="94" x2="90"  y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="260" y1="94" x2="260" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="430" y1="94" x2="430" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="600" y1="94" x2="600" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="770" y1="94" x2="770" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="940" y1="94" x2="940" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1110" y1="94" x2="1110" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1280" y1="94" x2="1280" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1450" y1="94" x2="1450" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1620" y1="94" x2="1620" y2="846" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+
+<!-- ===== activation bars ===== -->
+<rect x="255" y="116" width="10" height="714" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<rect x="595" y="248" width="10" height="508" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<rect x="765" y="700" width="10" height="52"  fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<rect x="935" y="274" width="10" height="408" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<rect x="1105" y="300" width="10" height="356" fill="#FBEFD9" stroke="#9A5B0E" stroke-width="0.8"/>
+<rect x="1275" y="346" width="10" height="216" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<rect x="1445" y="424" width="10" height="114" fill="#FAE7E1" stroke="#993C1D" stroke-width="0.8"/>
+
+<!-- ===== headers ===== -->
+<g font-size="9">
+<rect x="28" y="58" width="124" height="36" rx="5" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.3"/>
+<text x="90" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2C2C2A">Client</text>
+<text x="90" y="86" text-anchor="middle" fill="#888780">HTTP</text>
+<rect x="196" y="58" width="128" height="36" rx="5" fill="#FDEBD8" stroke="#9A5B0E" stroke-width="1.3"/>
+<text x="260" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#5A360A">router</text>
+<text x="260" y="86" text-anchor="middle" fill="#C07A1E">:http_graphs_router</text>
+<rect x="366" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="430" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">provider</text>
+<text x="430" y="86" text-anchor="middle" fill="#7F77DD">:YamlGraphProvider</text>
+<rect x="536" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="600" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">executor</text>
+<text x="600" y="86" text-anchor="middle" fill="#7F77DD">:GraphExecutor</text>
+<rect x="706" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="770" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">channel</text>
+<text x="770" y="86" text-anchor="middle" fill="#7F77DD">:HttpConnection</text>
+<rect x="876" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="940" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">runtime</text>
+<text x="940" y="86" text-anchor="middle" fill="#7F77DD">:LangGraphRuntime</text>
+<rect x="1044" y="58" width="132" height="36" rx="5" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.3"/>
+<text x="1110" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#412402">compiled «langgraph»</text>
+<text x="1110" y="86" text-anchor="middle" fill="#BA7517">motore + checkpointer</text>
+<rect x="1216" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1280" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">node</text>
+<text x="1280" y="86" text-anchor="middle" fill="#7F77DD">_as_node (wrapper)</text>
+<rect x="1386" y="58" width="128" height="36" rx="5" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="1450" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#4A1B0C">agent</text>
+<text x="1450" y="86" text-anchor="middle" fill="#D85A30">:Abstract*Node (ctx)</text>
+<rect x="1556" y="58" width="128" height="36" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1620" y="73" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">router_fn</text>
+<text x="1620" y="86" text-anchor="middle" fill="#7F77DD">_as_router → Router</text>
+</g>
+
+<!-- ===== loop + inner frames ===== -->
+<rect x="905" y="328" width="791" height="306" rx="4" fill="none" stroke="#9A5B0E" stroke-width="1.2"/>
+<path d="M905,328 H977 V344 L961,356 H905 Z" fill="#FBEFD9" stroke="#9A5B0E" stroke-width="1.2"/>
+<text x="913" y="343" font-size="9.5" font-weight="700" fill="#7A4A0A">loop</text>
+<text x="985" y="342" font-size="9.5" font-style="italic" fill="#7A4A0A">[LangGraph guida i super-step — per ogni nodo del grafo]</text>
+
+<rect x="1262" y="408" width="434" height="116" rx="4" fill="none" stroke="#534AB7" stroke-width="1.1" stroke-dasharray="2 3"/>
+<path d="M1262,408 H1342 V424 L1326,436 H1262 Z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.1"/>
+<text x="1270" y="423" font-size="9.5" font-weight="700" fill="#3F3795">node</text>
+<text x="1350" y="422" font-size="9.5" font-style="italic" fill="#3F3795">dentro il nodo (ctx-first) — qui mostrato come ~L1</text>
+
+<!-- ===== messages ===== -->
+<!-- M1 -->
+<line x1="91" y1="116" x2="256" y2="116" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="96" y="110" font-size="10" fill="#2C2C2A">POST /graphs/{name}/invoke  {thread_id, input}</text>
+<!-- M2 self verify_token -->
+<path d="M265,138 H305 V152 H266" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="270" y="133" font-size="10" fill="#2C2C2A">verify_token (Bearer)</text>
+<!-- M3 get -->
+<line x1="265" y1="174" x2="426" y2="174" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="270" y="168" font-size="10" fill="#2C2C2A">get(name) ⇒ runtime   [get_runtime]</text>
+<line x1="426" y1="194" x2="266" y2="194" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<!-- M4 new channel -->
+<line x1="265" y1="218" x2="766" y2="218" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="270" y="212" font-size="10" fill="#2C2C2A">new HttpConnection()   (canale per-richiesta)</text>
+<!-- M5 new executor -->
+<line x1="265" y1="244" x2="596" y2="244" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="270" y="238" font-size="10" fill="#2C2C2A">new GraphExecutor(graph=runtime, channel)</text>
+<!-- M6 run -->
+<line x1="265" y1="270" x2="596" y2="270" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="270" y="264" font-size="10" fill="#2C2C2A">executor.run(input, thread_id)</text>
+<!-- M7 ainvoke -->
+<line x1="605" y1="296" x2="936" y2="296" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="610" y="290" font-size="10" fill="#2C2C2A">graph.ainvoke(input, thread_id)</text>
+<!-- M8 compiled ainvoke -->
+<line x1="945" y1="322" x2="1106" y2="322" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="950" y="316" font-size="10" fill="#2C2C2A">compiled.ainvoke(dict(input), config{thread_id, recursion_limit})</text>
+
+<!-- M9 run wrapper -->
+<line x1="1115" y1="370" x2="1276" y2="370" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="1120" y="364" font-size="10" fill="#2C2C2A">run(data, config)   [_as_node]</text>
+<!-- M10 history -->
+<line x1="1275" y1="394" x2="946" y2="394" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="950" y="388" font-size="9.5" fill="#2C2C2A">history(thread_id) ⇒ StateHistory (bind del thread)</text>
+<!-- M11 previous opt -->
+<line x1="1275" y1="416" x2="946" y2="416" stroke="#3A3A38" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#call)"/>
+<text x="950" y="410" font-size="9.5" fill="#6E6C66">[se LOAD_PREVIOUS] history.previous() ⇒ ctx.previous</text>
+<!-- M12 invoke ctx -->
+<line x1="1285" y1="448" x2="1446" y2="448" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="1118" y="442" font-size="9.5" fill="#2C2C2A">invoke(ctx)   ctx = NodeContext(State(data), ExecutionData(), history, previous?)</text>
+<!-- M13 ai_invoke -->
+<path d="M1455,470 H1495 V484 H1456" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="1460" y="465" font-size="9.5" fill="#4A1B0C">ai_invoke(ctx.state) → LLM (await)</text>
+<!-- M14 on_result -->
+<path d="M1455,500 H1495 V514 H1456" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="1460" y="495" font-size="9.5" fill="#4A1B0C">on_result(ctx, State(result))  [sync]</text>
+<!-- M15 ret to wrapper -->
+<line x1="1445" y1="538" x2="1286" y2="538" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="1120" y="532" font-size="9.5" fill="#6E6C66">update parziale {messages, execution_data}</text>
+<!-- M16 ret to compiled -->
+<line x1="1275" y1="562" x2="1116" y2="562" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="1120" y="556" font-size="9.5" fill="#6E6C66">update parziale (canali da unire via reducer)</text>
+<!-- M17 self checkpoint -->
+<path d="M1115,584 H1155 V598 H1116" fill="none" stroke="#854F0B" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="1160" y="593" font-size="9.5" fill="#7A4A0A">checkpointer.put(checkpoint)  — persiste lo step</text>
+<!-- M18 route -->
+<line x1="1115" y1="620" x2="1616" y2="620" stroke="#3A3A38" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#call)"/>
+<text x="1120" y="614" font-size="9.5" fill="#6E6C66">[arco condizionale] route(data) ⇒ nome nodo successivo</text>
+
+<!-- M19 final state -->
+<line x1="1105" y1="654" x2="946" y2="654" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="950" y="648" font-size="10" fill="#6E6C66">stato finale (tutti i canali uniti)</text>
+<!-- M20 result to executor -->
+<line x1="935" y1="678" x2="606" y2="678" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="610" y="672" font-size="10" fill="#6E6C66">result</text>
+<!-- M21 send -->
+<line x1="605" y1="702" x2="766" y2="702" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="610" y="696" font-size="10" fill="#2C2C2A">channel.send(result)</text>
+<!-- M22 self buffer -->
+<path d="M775,724 H815 V738 H776" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="820" y="733" font-size="9.5" fill="#2C2C2A">bufferizza payload</text>
+<!-- M23 ret to router -->
+<line x1="595" y1="756" x2="266" y2="756" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="270" y="750" font-size="10" fill="#6E6C66">run() completo</text>
+<!-- M24 payload -->
+<line x1="265" y1="780" x2="766" y2="780" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="270" y="774" font-size="10" fill="#2C2C2A">channel.payload ⇒ state</text>
+<!-- M25 self reply -->
+<path d="M265,802 H305 V816 H266" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="270" y="797" font-size="10" fill="#2C2C2A">reply = last message .content</text>
+<!-- M26 response -->
+<line x1="256" y1="830" x2="91" y2="830" stroke="#6E6C66" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="96" y="824" font-size="10" fill="#6E6C66">InvokeResponse(graph, thread_id, reply, state?)</text>
+
+<!-- ===== notes ===== -->
+<rect x="40" y="300" width="500" height="86" rx="6" fill="#F4FBF8" stroke="#0F6E56" stroke-width="1.1"/>
+<text x="52" y="320" font-size="10.5" font-weight="700" fill="#0F6E56">IoC per-richiesta</text>
+<text x="52" y="338" font-size="9.8" fill="#04342C">channel (HttpConnection) ed executor (GraphExecutor) sono</text>
+<text x="52" y="353" font-size="9.8" fill="#04342C">creati per OGNI richiesta e iniettati come interfacce. Il grafo</text>
+<text x="52" y="368" font-size="9.8" fill="#04342C">vede solo ConnectionInterface/GraphRuntimeInterface: non sa</text>
+<text x="52" y="382" font-size="9.8" fill="#04342C">che dietro ci sono FastAPI e LangGraph.</text>
+
+<rect x="40" y="700" width="560" height="92" rx="6" fill="#FAF1EC" stroke="#993C1D" stroke-width="1.1"/>
+<text x="52" y="720" font-size="10.5" font-weight="700" fill="#4A1B0C">Il nodo è generico (qui ~L1)</text>
+<text x="52" y="738" font-size="9.8" fill="#4A1B0C">L0: invoke ⇒ run(ctx) (nessun LLM).  L1: ai_invoke → on_result (mostrato).</text>
+<text x="52" y="753" font-size="9.8" fill="#4A1B0C">L2: invoke avvolge il core in before_invoke → super().invoke → after_invoke,</text>
+<text x="52" y="768" font-size="9.8" fill="#4A1B0C">guardato da on_error.  L3: override di on_result/build_prompt.</text>
+<text x="52" y="784" font-size="9.5" font-style="italic" fill="#D85A30">In tutti i casi il wrapper _as_node costruisce UN NodeContext per chiamata e fa invoke(ctx).</text>
+
+<!-- legend -->
+<line x1="630" y1="724" x2="660" y2="724" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="668" y="728" font-size="10.5" fill="#5F5E5A">chiamata (await)</text>
+<line x1="630" y1="746" x2="660" y2="746" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="668" y="750" font-size="10.5" fill="#5F5E5A">ritorno</text>
+<line x1="630" y1="768" x2="660" y2="768" stroke="#3A3A38" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#call)"/>
+<text x="668" y="772" font-size="10.5" fill="#5F5E5A">opzionale (LOAD_PREVIOUS / arco condizionale)</text>
+</svg>

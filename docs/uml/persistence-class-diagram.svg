@@ -1,0 +1,133 @@
+<svg viewBox="0 0 1300 750" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>persistence — class diagram</title>
+<desc>Il package persistence: adapter del checkpointer (Memory/Postgres) dietro la porta CheckpointerProviderInterface del core, con una porta INTERNA ConnectionPoolProviderInterface per il pool psycopg. Cicli di vita annidati. Box tratteggiato = confine/esterno.</desc>
+<defs>
+<marker id="tri" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L12,6 L1,11 Z" fill="#ffffff" stroke="#444441" stroke-width="1.2"/></marker>
+<marker id="vee" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#5F5E5A" stroke-width="1.4"/></marker>
+</defs>
+<rect x="0" y="0" width="1300" height="750" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">persistence · checkpointer &amp; connection pool — class diagram</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">Adapter del backend di stato dietro <tspan font-style="italic">CheckpointerProviderInterface</tspan> (core). IoC: il core sceglie Memory o Postgres. Cicli di vita <tspan font-weight="700">annidati</tspan>: checkpoint annida il pool (db).</text>
+
+<text x="62" y="62" font-size="10.5" font-weight="700" fill="#A6A49C">checkpoint  ·  db  ·  (confine: core / langgraph / psycopg)</text>
+
+<!-- ===== arrows ===== -->
+<line x1="250" y1="210" x2="468" y2="166" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="570" y1="210" x2="570" y2="166" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="828" y1="117" x2="744" y2="117" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="748" y="110" font-size="9.5" font-style="italic" fill="#5F5E5A">open() (IoC)</text>
+<line x1="570" y1="342" x2="570" y2="390" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="576" y="372" font-size="9.5" font-style="italic" fill="#5F5E5A">usa · annida open()</text>
+<line x1="570" y1="556" x2="570" y2="506" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="215" y1="326" x2="215" y2="384" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="221" y="368" font-size="9.5" font-style="italic" fill="#5F5E5A">yield</text>
+<line x1="742" y1="268" x2="828" y2="266" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="748" y="260" font-size="9.5" font-style="italic" fill="#5F5E5A">costruisce</text>
+<line x1="742" y1="612" x2="828" y2="608" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="748" y="604" font-size="9.5" font-style="italic" fill="#5F5E5A">possiede il pool</text>
+
+<!-- ===== CheckpointerProviderInterface (boundary core) ===== -->
+<rect x="400" y="70" width="340" height="96" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="570" y="86" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="570" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">CheckpointerProviderInterface</text>
+<text x="570" y="119" text-anchor="middle" font-size="10" fill="#888780">core.interface  (confine)</text>
+<line x1="408" y1="127" x2="732" y2="127" stroke="#5F5E5A" stroke-width="1"/>
+<text x="412" y="145" font-size="11" fill="#2C2C2A">+ open() → CM[BaseCheckpointSaver]</text>
+<text x="412" y="161" font-size="10" font-style="italic" fill="#888780">il core sceglie qui il backend di stato</text>
+
+<!-- ===== YamlGraphProviderFactory (boundary consumer) ===== -->
+<rect x="830" y="70" width="340" height="96" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="1000" y="86" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class · consumer»</text>
+<text x="1000" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">YamlGraphProviderFactory</text>
+<text x="1000" y="119" text-anchor="middle" font-size="10" fill="#7F77DD">core.provider  (confine)</text>
+<line x1="838" y1="127" x2="1162" y2="127" stroke="#534AB7" stroke-width="1"/>
+<text x="842" y="145" font-size="11" fill="#26215C">open(): annida il checkpointer</text>
+<text x="842" y="161" font-size="11" fill="#26215C">GraphBuilder(registry, saver)</text>
+
+<!-- ===== MemoryCheckpointerProvider ===== -->
+<rect x="60" y="210" width="310" height="116" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="215" y="226" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="215" y="244" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">MemoryCheckpointerProvider</text>
+<text x="215" y="259" text-anchor="middle" font-size="10" fill="#7F77DD">persistence.checkpoint</text>
+<line x1="68" y1="267" x2="362" y2="267" stroke="#534AB7" stroke-width="1"/>
+<text x="72" y="285" font-size="11" fill="#26215C">open(): yield MemorySaver()</text>
+<text x="72" y="303" font-size="10.5" fill="#26215C">niente DB · stato solo in RAM</text>
+<text x="72" y="320" font-size="10" font-style="italic" fill="#7F77DD">default dev/test (DATABASE_URI assente)</text>
+
+<!-- ===== PostgresCheckpointerProvider ===== -->
+<rect x="400" y="210" width="340" height="132" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="570" y="226" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="570" y="244" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">PostgresCheckpointerProvider</text>
+<text x="570" y="259" text-anchor="middle" font-size="10" fill="#7F77DD">persistence.checkpoint</text>
+<line x1="408" y1="267" x2="732" y2="267" stroke="#534AB7" stroke-width="1"/>
+<text x="412" y="285" font-size="11" fill="#26215C">- _pool_provider : ConnectionPoolProvider…</text>
+<text x="412" y="303" font-size="11" fill="#26215C">open(): AsyncPostgresSaver(pool)</text>
+<text x="412" y="321" font-size="11" fill="#26215C">await saver.setup()  (crea tabelle)</text>
+<text x="412" y="337" font-size="10" font-style="italic" fill="#7F77DD">strategia di produzione</text>
+
+<!-- ===== AsyncPostgresSaver (ext) ===== -->
+<rect x="830" y="216" width="340" height="98" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="1000" y="232" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«external»</text>
+<text x="1000" y="250" text-anchor="middle" font-size="12.5" font-weight="700" fill="#412402">AsyncPostgresSaver</text>
+<text x="1000" y="265" text-anchor="middle" font-size="10" fill="#BA7517">langgraph.checkpoint.postgres.aio</text>
+<line x1="838" y1="273" x2="1162" y2="273" stroke="#854F0B" stroke-width="1"/>
+<text x="842" y="291" font-size="11" fill="#412402">BaseCheckpointSaver su Postgres</text>
+<text x="842" y="307" font-size="11" fill="#412402">setup() idempotente</text>
+
+<!-- ===== MemorySaver (ext) ===== -->
+<rect x="60" y="386" width="310" height="84" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="215" y="402" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«external»</text>
+<text x="215" y="420" text-anchor="middle" font-size="12.5" font-weight="700" fill="#412402">MemorySaver</text>
+<text x="215" y="435" text-anchor="middle" font-size="10" fill="#BA7517">langgraph.checkpoint.memory</text>
+<line x1="68" y1="443" x2="362" y2="443" stroke="#854F0B" stroke-width="1"/>
+<text x="72" y="461" font-size="11" fill="#412402">BaseCheckpointSaver in RAM</text>
+
+<!-- ===== ConnectionPoolProviderInterface (internal port) ===== -->
+<rect x="400" y="392" width="340" height="112" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="570" y="408" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface · interna a persistence»</text>
+<text x="570" y="426" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2C2C2A">ConnectionPoolProviderInterface</text>
+<text x="570" y="441" text-anchor="middle" font-size="10" fill="#888780">persistence.db</text>
+<line x1="408" y1="449" x2="732" y2="449" stroke="#5F5E5A" stroke-width="1"/>
+<text x="412" y="467" font-size="11" fill="#2C2C2A">+ open() → CM[AsyncConnectionPool]</text>
+<text x="412" y="484" font-size="10" font-style="italic" fill="#888780">porta INTERNA: referenzia psycopg →</text>
+<text x="412" y="498" font-size="10" font-style="italic" fill="#888780">NON sta in core (che resta DB-free)</text>
+
+<!-- ===== repositories reserved ===== -->
+<rect x="60" y="520" width="310" height="116" rx="6" fill="#F4F4F2" stroke="#B8B6AE" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="215" y="536" text-anchor="middle" font-size="10.5" font-style="italic" fill="#8C8A82">«package · vuoto/riservato»</text>
+<text x="215" y="554" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5A5852">repositories</text>
+<text x="215" y="569" text-anchor="middle" font-size="10" fill="#A6A49C">persistence.repositories</text>
+<line x1="68" y1="577" x2="362" y2="577" stroke="#B8B6AE" stroke-width="1"/>
+<text x="72" y="595" font-size="10.5" fill="#7A786F">oggi solo __init__.py</text>
+<text x="72" y="612" font-size="10.5" fill="#7A786F">domani: condividerà lo STESSO pool (db)</text>
+<text x="72" y="628" font-size="10" font-style="italic" fill="#A6A49C">per questo il pool è una porta a sé</text>
+
+<!-- ===== PostgresConnectionPoolProvider ===== -->
+<rect x="400" y="556" width="340" height="128" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="570" y="572" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="570" y="590" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">PostgresConnectionPoolProvider</text>
+<text x="570" y="605" text-anchor="middle" font-size="10" fill="#7F77DD">persistence.db</text>
+<line x1="408" y1="613" x2="732" y2="613" stroke="#534AB7" stroke-width="1"/>
+<text x="412" y="631" font-size="11" fill="#26215C">- _db_uri  - _max_size = 20</text>
+<text x="412" y="649" font-size="11" fill="#26215C">open(): AsyncConnectionPool(open=False)</text>
+<text x="412" y="667" font-size="10.5" fill="#26215C">autocommit=True · prepare_threshold=0</text>
+<text x="412" y="681" font-size="10" font-style="italic" fill="#7F77DD">DATABASE_URI dal .env del progetto</text>
+
+<!-- ===== AsyncConnectionPool (ext psycopg) ===== -->
+<rect x="830" y="556" width="340" height="96" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="1000" y="572" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«external»</text>
+<text x="1000" y="590" text-anchor="middle" font-size="12.5" font-weight="700" fill="#412402">AsyncConnectionPool</text>
+<text x="1000" y="605" text-anchor="middle" font-size="10" fill="#BA7517">psycopg_pool</text>
+<line x1="838" y1="613" x2="1162" y2="613" stroke="#854F0B" stroke-width="1"/>
+<text x="842" y="631" font-size="11" fill="#412402">pool di connessioni async</text>
+<text x="842" y="648" font-size="11" fill="#412402">aperto/chiuso via «async with»</text>
+
+<!-- ===== legend ===== -->
+<line x1="60" y1="706" x2="76" y2="706" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<text x="84" y="710" font-size="10.5" fill="#5F5E5A">implementa</text>
+<line x1="190" y1="706" x2="206" y2="706" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="214" y="710" font-size="10.5" fill="#5F5E5A">usa / costruisce / yield</text>
+<rect x="370" y="699" width="20" height="13" rx="3" fill="#ffffff" stroke="#5F5E5A"/><text x="396" y="710" font-size="10.5" fill="#5F5E5A">del package</text>
+<rect x="490" y="699" width="20" height="13" rx="3" fill="#ffffff" stroke="#5F5E5A" stroke-dasharray="4 3"/><text x="516" y="710" font-size="10.5" fill="#5F5E5A">confine (core) / esterno (langgraph, psycopg)</text>
+<text x="60" y="734" font-size="10.5" font-style="italic" fill="#888780">Annidamento: Factory.open() ⊃ Checkpointer.open() ⊃ Pool.open() — la connessione vive esattamente quanto i grafi serviti.</text>
+</svg>

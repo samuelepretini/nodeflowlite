@@ -1,0 +1,22 @@
+# WorkerGraph — the minimal runnable graph: a single worker, no router.
+#
+# "Thin" YAML: only the graph TOPOLOGY lives here. Behaviour (model, prompt, tools)
+# lives in the Python agent; the names (agents, types, reducers) are resolved by the
+# registry. This is the Phase-A end-to-end target: START -> worker -> END.
+
+name: WorkerGraph
+description: A single worker that answers using the available tools.
+version: 1
+
+# Shared state flowing between the nodes.
+state:
+  messages: { type: list, reducer: add_messages }
+
+# A node = an agent. Its configuration lives in the agent, not here.
+nodes:
+  worker: { agent: WorkerAgent }
+
+# Linear edges: no router needed.
+edges:
+  - { from: START,  to: worker }
+  - { from: worker, to: END }

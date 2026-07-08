@@ -1,0 +1,113 @@
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>config — class diagram</title>
+<desc>Il package config e' vuoto/riservato: la configurazione vive oggi come HttpSettings (pydantic), variabili d'ambiente e provider della persistence. Box a bordo tratteggiato = classe di confine (altro package).</desc>
+<defs>
+<marker id="tri" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L12,6 L1,11 Z" fill="#ffffff" stroke="#444441" stroke-width="1.2"/></marker>
+<marker id="vee" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#5F5E5A" stroke-width="1.4"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="620" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">config · dove vive davvero la configurazione — class diagram</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">Il package <tspan font-weight="700">config</tspan> e' un segnaposto vuoto. Oggi la configurazione e' sparsa: settings HTTP (pydantic), variabili d'ambiente, scelta del backend di persistenza.</text>
+
+<!-- arrows -->
+<line x1="640" y1="116" x2="700" y2="116" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="648" y="108" font-size="10" font-style="italic" fill="#5F5E5A">usa api_token</text>
+<line x1="240" y1="280" x2="300" y2="280" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<line x1="150" y1="330" x2="300" y2="392" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<line x1="600" y1="400" x2="800" y2="416" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="612" y="404" font-size="10" font-style="italic" fill="#5F5E5A">letta da</text>
+<line x1="700" y1="372" x2="700" y2="332" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="880" y1="372" x2="850" y2="332" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+
+<!-- config package (empty placeholder, focus = solid) -->
+<rect x="40" y="56" width="240" height="96" rx="6" fill="#F4F4F2" stroke="#B8B6AE" stroke-width="1.6"/>
+<text x="160" y="72" text-anchor="middle" font-size="10.5" font-style="italic" fill="#8C8A82">«package · vuoto/riservato»</text>
+<text x="160" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#5A5852">config</text>
+<text x="160" y="105" text-anchor="middle" font-size="10.5" fill="#A6A49C">agent_platform.config</text>
+<line x1="48" y1="113" x2="272" y2="113" stroke="#B8B6AE" stroke-width="1"/>
+<text x="52" y="131" font-size="11" fill="#7A786F">__init__.py — 0 byte</text>
+<text x="52" y="148" font-size="11" fill="#7A786F">nessuna classe (segnaposto)</text>
+
+<!-- HttpSettings (boundary connection) -->
+<rect x="360" y="56" width="280" height="120" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="500" y="72" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0F6E56">«DTO · pydantic»</text>
+<text x="500" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#04342C">HttpSettings</text>
+<text x="500" y="105" text-anchor="middle" font-size="10.5" fill="#1D9E75">connection…channel_operativity</text>
+<line x1="368" y1="113" x2="632" y2="113" stroke="#0F6E56" stroke-width="1"/>
+<text x="372" y="131" font-size="11" fill="#04342C">+ title = "Agent Platform"</text>
+<text x="372" y="149" font-size="11" fill="#04342C">+ api_token : str | None</text>
+<text x="372" y="167" font-size="10.5" font-style="italic" fill="#1D9E75">settings dell'app HTTP (uvicorn)</text>
+
+<!-- verify_token (boundary connection) -->
+<rect x="700" y="56" width="260" height="120" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="830" y="72" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«fn · FastAPI dep»</text>
+<text x="830" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">verify_token</text>
+<text x="830" y="105" text-anchor="middle" font-size="10.5" fill="#888780">connection…channel_status.auth</text>
+<line x1="708" y1="113" x2="952" y2="113" stroke="#5F5E5A" stroke-width="1"/>
+<text x="712" y="131" font-size="11" fill="#2C2C2A">legge app.state.settings.api_token</text>
+<text x="712" y="149" font-size="11" fill="#2C2C2A">Bearer non combacia → 401</text>
+<text x="712" y="167" font-size="10.5" font-style="italic" fill="#888780">protegge le route /graphs</text>
+
+<!-- .env file -->
+<rect x="40" y="240" width="200" height="92" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5"/>
+<text x="140" y="256" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«external · file»</text>
+<text x="140" y="274" text-anchor="middle" font-size="13" font-weight="700" fill="#412402">.env</text>
+<text x="140" y="289" text-anchor="middle" font-size="10.5" fill="#BA7517">per-progetto</text>
+<line x1="48" y1="297" x2="232" y2="297" stroke="#854F0B" stroke-width="1"/>
+<text x="52" y="315" font-size="11" fill="#412402">OPENROUTER_API_KEY</text>
+<text x="52" y="328" font-size="11" fill="#412402">DATABASE_URI (opz.)</text>
+
+<!-- OPENROUTER_API_KEY -->
+<rect x="300" y="232" width="300" height="96" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="450" y="248" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«env var»</text>
+<text x="450" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#412402">OPENROUTER_API_KEY</text>
+<text x="450" y="281" text-anchor="middle" font-size="10.5" fill="#BA7517">letta in core.abstract</text>
+<line x1="308" y1="289" x2="592" y2="289" stroke="#854F0B" stroke-width="1"/>
+<text x="312" y="307" font-size="11" fill="#412402">AbstractCommonNode.ai_invoke</text>
+<text x="312" y="324" font-size="11" fill="#412402">→ chiamata LLM (OpenRouter)</text>
+
+<!-- DATABASE_URI -->
+<rect x="300" y="346" width="300" height="96" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="450" y="362" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«env var»</text>
+<text x="450" y="380" text-anchor="middle" font-size="13" font-weight="700" fill="#412402">DATABASE_URI</text>
+<text x="450" y="395" text-anchor="middle" font-size="10.5" fill="#BA7517">letta in persistence / scaffold</text>
+<line x1="308" y1="403" x2="592" y2="403" stroke="#854F0B" stroke-width="1"/>
+<text x="312" y="421" font-size="11" fill="#412402">PostgresConnectionPoolProvider</text>
+<text x="312" y="438" font-size="11" fill="#412402">se assente → Memory saver (RAM)</text>
+
+<!-- CheckpointerProviderInterface (boundary core.interface) -->
+<rect x="660" y="232" width="300" height="100" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="810" y="248" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="810" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">CheckpointerProviderInterface</text>
+<text x="810" y="281" text-anchor="middle" font-size="10.5" fill="#888780">core.interface</text>
+<line x1="668" y1="289" x2="952" y2="289" stroke="#5F5E5A" stroke-width="1"/>
+<text x="664" y="307" font-size="11" fill="#2C2C2A">+ open() → CM[BaseCheckpointSaver]</text>
+<text x="664" y="324" font-size="10.5" font-style="italic" fill="#888780">IoC: quale backend di stato</text>
+
+<!-- MemoryCheckpointerProvider -->
+<rect x="620" y="372" width="160" height="108" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="700" y="388" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«class»</text>
+<text x="700" y="405" text-anchor="middle" font-size="11.5" font-weight="700" fill="#26215C">Memory…Provider</text>
+<text x="700" y="419" text-anchor="middle" font-size="10" fill="#7F77DD">persistence.checkpoint</text>
+<line x1="628" y1="427" x2="772" y2="427" stroke="#534AB7" stroke-width="1"/>
+<text x="624" y="445" font-size="10.5" fill="#26215C">saver in RAM</text>
+<text x="624" y="461" font-size="10.5" fill="#26215C">default sviluppo</text>
+
+<!-- PostgresCheckpointerProvider -->
+<rect x="800" y="372" width="160" height="108" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="880" y="388" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«class»</text>
+<text x="880" y="405" text-anchor="middle" font-size="11.5" font-weight="700" fill="#26215C">Postgres…Provider</text>
+<text x="880" y="419" text-anchor="middle" font-size="10" fill="#7F77DD">persistence.checkpoint</text>
+<line x1="808" y1="427" x2="952" y2="427" stroke="#534AB7" stroke-width="1"/>
+<text x="804" y="445" font-size="10.5" fill="#26215C">usa DATABASE_URI</text>
+<text x="804" y="461" font-size="10.5" fill="#26215C">AsyncPostgresSaver</text>
+
+<!-- legend -->
+<line x1="40" y1="556" x2="56" y2="556" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<text x="64" y="560" font-size="10.5" fill="#5F5E5A">implementa</text>
+<line x1="160" y1="556" x2="176" y2="556" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="184" y="560" font-size="10.5" fill="#5F5E5A">usa / legge</text>
+<rect x="280" y="549" width="22" height="13" rx="3" fill="#ffffff" stroke="#5F5E5A"/><text x="308" y="560" font-size="10.5" fill="#5F5E5A">bordo continuo = del package</text>
+<rect x="500" y="549" width="22" height="13" rx="3" fill="#ffffff" stroke="#5F5E5A" stroke-dasharray="4 3"/><text x="528" y="560" font-size="10.5" fill="#5F5E5A">bordo tratteggiato = confine (altro package)</text>
+<text x="40" y="586" font-size="10.5" font-style="italic" fill="#888780">Spunto AP: centralizzare in un vero package config (es. una Settings pydantic unica) e iniettarla — oggi NON c'e'.</text>
+</svg>

@@ -1,0 +1,31 @@
+# simple_test graph — a minimal, runnable starting point.
+#
+# "Thin" YAML: only the graph TOPOLOGY lives here. Behaviour (model, prompt, tools)
+# lives in your Python agents under agents/; the names are resolved by the registry
+# you wire in PlatformManager.py. As shipped this runs START -> worker -> END using
+# the BasicWorker stub (set OPENROUTER_API_KEY in .env first).
+
+name: MyGraph
+description: A single worker that answers the user.
+version: 1
+
+# Shared state flowing between nodes. `add_messages` is the built-in chat reducer.
+state:
+  messages: { type: list, reducer: add_messages }
+  # verdict:  { type: str }              # uncomment for a judge / quality loop
+  # attempts: { type: int, default: 0 }
+
+# A node = an agent (the name is resolved by the registry in PlatformManager.py).
+nodes:
+  worker: { agent: BasicWorker }
+  # judge:  { agent: JudgeAgent }        # uncomment to add a judge
+
+# Edges wire the topology. Linear: { from: X, to: Y }. Conditional: a router picks.
+edges:
+  - { from: START,  to: worker }
+  - { from: worker, to: END }
+  # Quality loop — replace the "worker -> END" edge above with these:
+  # - { from: worker, to: judge }
+  # - from: judge
+  #   router: QualityRouter              # route(state) -> "worker" | "END"
+  #   targets: [worker, END]

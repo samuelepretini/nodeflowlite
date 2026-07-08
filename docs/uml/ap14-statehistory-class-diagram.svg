@@ -1,0 +1,159 @@
+<svg viewBox="0 0 1240 940" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>AP-14 StateHistory + Choice B — class diagram</title>
+<desc>Diagramma UML delle classi di AP-14 (recupero stato/StateHistory) e del refactor ctx-first (Scelta B), con il package di appartenenza in ogni box.</desc>
+<defs>
+<marker id="tri" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L12,6 L1,11 Z" fill="#ffffff" stroke="#444441" stroke-width="1.2"/></marker>
+<marker id="vee" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#5F5E5A" stroke-width="1.4"/></marker>
+</defs>
+<rect x="0" y="0" width="1240" height="940" fill="#ffffff"/>
+<text x="40" y="22" font-size="13" font-weight="700" fill="#2C2C2A">AP-14 · StateHistory + Scelta B (ctx-first) — class diagram</text>
+
+<line x1="178" y1="200" x2="178" y2="166" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="178" y1="512" x2="178" y2="478" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="600" y1="188" x2="600" y2="150" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="1030" y1="180" x2="1030" y2="130" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<line x1="1030" y1="560" x2="1030" y2="306" stroke="#444441" stroke-width="1.4" marker-end="url(#tri)"/>
+
+<path d="M335,250 H362 V570 H337" fill="none" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="366" y="420" font-size="10.5" font-style="italic" fill="#5F5E5A">creates</text>
+<line x1="178" y1="634" x2="178" y2="694" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="184" y="668" font-size="10.5" font-style="italic" fill="#5F5E5A">values ← checkpointer · index ← engine</text>
+<line x1="880" y1="855" x2="752" y2="640" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="772" y="770" font-size="10.5" font-style="italic" fill="#5F5E5A">builds ONE ctx</text>
+<line x1="880" y1="835" x2="640" y2="470" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="700" y="700" font-size="10.5" font-style="italic" fill="#5F5E5A">at() not found → 404</text>
+
+<rect x="40" y="40" width="295" height="126" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="187" y="56" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="187" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">GraphRuntimeInterface</text>
+<text x="187" y="89" text-anchor="middle" font-size="10.5" fill="#888780">core.interface</text>
+<line x1="48" y1="97" x2="327" y2="97" stroke="#5F5E5A" stroke-width="1"/>
+<text x="52" y="115" font-size="11" fill="#2C2C2A">+ ainvoke(input, thread_id)</text>
+<text x="52" y="133" font-size="11" fill="#2C2C2A">+ get_state(thread_id)</text>
+<text x="52" y="151" font-size="11" fill="#2C2C2A">+ history(thread_id)  <tspan fill="#993C1D">«new»</tspan></text>
+
+<rect x="40" y="200" width="295" height="106" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="187" y="216" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="187" y="234" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">LangGraphRuntime</text>
+<text x="187" y="249" text-anchor="middle" font-size="10.5" fill="#7F77DD">core.runtime</text>
+<line x1="48" y1="257" x2="327" y2="257" stroke="#534AB7" stroke-width="1"/>
+<text x="52" y="275" font-size="11" fill="#26215C">- _compiled</text>
+<text x="52" y="293" font-size="11" fill="#26215C">+ history() → LangGraphStateHistory</text>
+
+<rect x="40" y="352" width="295" height="126" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="187" y="368" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="325" y="368" text-anchor="end" font-size="10.5" fill="#993C1D">new</text>
+<text x="187" y="386" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">StateHistoryInterface</text>
+<text x="187" y="401" text-anchor="middle" font-size="10.5" fill="#888780">core.interface</text>
+<line x1="48" y1="409" x2="327" y2="409" stroke="#5F5E5A" stroke-width="1"/>
+<text x="52" y="427" font-size="11" fill="#2C2C2A">+ back(steps) : State  (previous()=back(1))</text>
+<text x="52" y="445" font-size="11" fill="#2C2C2A">+ at(checkpoint_id) : State</text>
+<text x="52" y="463" font-size="11" fill="#2C2C2A">+ checkpoints(limit) : [StateCheckpoint]</text>
+
+<rect x="40" y="512" width="295" height="122" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="187" y="528" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="325" y="528" text-anchor="end" font-size="10.5" fill="#993C1D">new</text>
+<text x="187" y="546" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">LangGraphStateHistory</text>
+<text x="187" y="561" text-anchor="middle" font-size="10.5" fill="#7F77DD">core.runtime</text>
+<line x1="48" y1="569" x2="327" y2="569" stroke="#534AB7" stroke-width="1"/>
+<text x="52" y="587" font-size="11" fill="#26215C">- _compiled  - _thread_id</text>
+<text x="52" y="605" font-size="11" fill="#26215C">values: checkpointer (anche mid-run)</text>
+<text x="52" y="623" font-size="11" fill="#26215C">index: engine + fallback checkpointer</text>
+
+<rect x="40" y="694" width="295" height="106" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5"/>
+<text x="187" y="710" text-anchor="middle" font-size="10.5" font-style="italic" fill="#854F0B">«external»</text>
+<text x="187" y="728" text-anchor="middle" font-size="13" font-weight="700" fill="#412402">CompiledStateGraph</text>
+<text x="187" y="743" text-anchor="middle" font-size="10.5" fill="#BA7517">langgraph</text>
+<line x1="48" y1="751" x2="327" y2="751" stroke="#854F0B" stroke-width="1"/>
+<text x="52" y="769" font-size="11" fill="#412402">aget_state* (engine, vuoto mid-run)</text>
+<text x="52" y="787" font-size="11" fill="#412402">.checkpointer.alist / aget_tuple</text>
+
+<rect x="475" y="44" width="250" height="106" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="600" y="60" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="600" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">StateInterface</text>
+<text x="600" y="93" text-anchor="middle" font-size="10.5" fill="#888780">core.interface</text>
+<line x1="483" y1="101" x2="717" y2="101" stroke="#5F5E5A" stroke-width="1"/>
+<text x="487" y="119" font-size="11" fill="#2C2C2A">+ messages · execution_data</text>
+<text x="487" y="137" font-size="11" fill="#2C2C2A">+ get(key) · as_dict()</text>
+
+<rect x="475" y="188" width="250" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="600" y="204" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="600" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">State</text>
+<text x="600" y="237" text-anchor="middle" font-size="10.5" fill="#7F77DD">core.state</text>
+<line x1="483" y1="245" x2="717" y2="245" stroke="#534AB7" stroke-width="1"/>
+<text x="487" y="263" font-size="11" fill="#26215C">- _data  (values, ripuliti)</text>
+
+<rect x="475" y="320" width="250" height="142" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.5"/>
+<text x="600" y="336" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0F6E56">«DTO»</text>
+<text x="715" y="336" text-anchor="end" font-size="10.5" fill="#993C1D">new</text>
+<text x="600" y="354" text-anchor="middle" font-size="13" font-weight="700" fill="#04342C">StateCheckpoint</text>
+<text x="600" y="369" text-anchor="middle" font-size="10.5" fill="#1D9E75">core.DTO</text>
+<line x1="483" y1="377" x2="717" y2="377" stroke="#0F6E56" stroke-width="1"/>
+<text x="487" y="395" font-size="11" fill="#04342C">+ checkpoint_id</text>
+<text x="487" y="413" font-size="11" fill="#04342C">+ node   (vuoto se in-nodo)</text>
+<text x="487" y="431" font-size="11" fill="#04342C">+ step</text>
+<text x="487" y="449" font-size="11" fill="#04342C">+ created_at</text>
+
+<rect x="475" y="500" width="250" height="142" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.5"/>
+<text x="600" y="516" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0F6E56">«per-call»</text>
+<text x="715" y="516" text-anchor="end" font-size="10.5" fill="#993C1D">new</text>
+<text x="600" y="534" text-anchor="middle" font-size="13" font-weight="700" fill="#04342C">NodeContext (ctx)</text>
+<text x="600" y="549" text-anchor="middle" font-size="10.5" fill="#1D9E75">core.state</text>
+<line x1="483" y1="557" x2="717" y2="557" stroke="#0F6E56" stroke-width="1"/>
+<text x="487" y="575" font-size="11" fill="#04342C">+ state : StateInterface</text>
+<text x="487" y="593" font-size="11" fill="#04342C">+ data : ExecutionData</text>
+<text x="487" y="611" font-size="11" fill="#04342C">+ history : StateHistoryInterface</text>
+<text x="487" y="629" font-size="11" fill="#04342C">+ previous : State?  (opt-in, no await)</text>
+
+<rect x="475" y="664" width="250" height="90" rx="6" fill="#FCEBEB" stroke="#A32D2D" stroke-width="1.5"/>
+<text x="600" y="680" text-anchor="middle" font-size="10.5" font-style="italic" fill="#A32D2D">«error»</text>
+<text x="715" y="680" text-anchor="end" font-size="10.5" fill="#993C1D">new</text>
+<text x="600" y="698" text-anchor="middle" font-size="13" font-weight="700" fill="#501313">CheckpointNotFoundError</text>
+<text x="600" y="713" text-anchor="middle" font-size="10.5" fill="#E24B4A">core.state</text>
+<line x1="483" y1="721" x2="717" y2="721" stroke="#A32D2D" stroke-width="1"/>
+<text x="487" y="739" font-size="11" fill="#501313">at() la solleva → HTTP 404</text>
+
+<rect x="890" y="44" width="300" height="86" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="1040" y="60" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="1040" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">NodeInterface</text>
+<text x="1040" y="93" text-anchor="middle" font-size="10.5" fill="#888780">core.interface</text>
+<line x1="898" y1="101" x2="1182" y2="101" stroke="#5F5E5A" stroke-width="1"/>
+<text x="902" y="119" font-size="11" fill="#2C2C2A">+ invoke(ctx)   <tspan fill="#993C1D">(era invoke(state))</tspan></text>
+
+<rect x="890" y="180" width="300" height="126" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="1040" y="196" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«abstract · scala L0/L1/L2»</text>
+<text x="1040" y="214" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">AbstractNode / Common / Hooked</text>
+<text x="1040" y="229" text-anchor="middle" font-size="10.5" fill="#7F77DD">core.abstract</text>
+<line x1="898" y1="237" x2="1182" y2="237" stroke="#534AB7" stroke-width="1"/>
+<text x="902" y="255" font-size="11" fill="#26215C">L0  # run(ctx)</text>
+<text x="902" y="273" font-size="11" fill="#26215C">L1/L3  # on_result(ctx, result)</text>
+<text x="902" y="291" font-size="11" fill="#26215C">L2  # before/after/on_error(ctx, …)</text>
+
+<rect x="890" y="560" width="300" height="120" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.5"/>
+<text x="1040" y="576" text-anchor="middle" font-size="10.5" font-style="italic" fill="#993C1D">«user node»</text>
+<text x="1040" y="594" text-anchor="middle" font-size="13" font-weight="700" fill="#4A1B0C">MyNode</text>
+<text x="1040" y="609" text-anchor="middle" font-size="10.5" fill="#D85A30">&lt;project&gt;.agents</text>
+<line x1="898" y1="617" x2="1182" y2="617" stroke="#993C1D" stroke-width="1"/>
+<text x="902" y="635" font-size="11" fill="#4A1B0C"># run(ctx):</text>
+<text x="902" y="653" font-size="10.5" font-family="ui-monospace, monospace" fill="#4A1B0C">prev = await ctx.history.back(1)</text>
+<text x="902" y="671" font-size="10.5" font-family="ui-monospace, monospace" fill="#4A1B0C">p = ctx.previous   # no await (opt-in)</text>
+
+<rect x="700" y="810" width="330" height="100" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="865" y="826" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="865" y="844" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">GraphBuilder</text>
+<text x="865" y="859" text-anchor="middle" font-size="10.5" fill="#7F77DD">core.builder</text>
+<line x1="708" y1="867" x2="1022" y2="867" stroke="#534AB7" stroke-width="1"/>
+<text x="712" y="885" font-size="11" fill="#26215C">_as_node: costruisce 1 NodeContext/chiamata</text>
+<text x="712" y="903" font-size="11" fill="#26215C">→ invoke(ctx); runtime_holder (history bound)</text>
+
+<line x1="1030" y1="560" x2="1030" y2="306" stroke="#444441" stroke-width="1.4" marker-end="url(#tri)"/>
+
+<line x1="40" y1="876" x2="56" y2="876" stroke="#444441" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<text x="64" y="880" font-size="10.5" fill="#5F5E5A">implements / extends</text>
+<line x1="220" y1="876" x2="236" y2="876" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="244" y="880" font-size="10.5" fill="#5F5E5A">calls / uses</text>
+<rect x="360" y="869" width="13" height="13" rx="3" fill="#F1EFE8" stroke="#5F5E5A"/><text x="378" y="880" font-size="10.5" fill="#5F5E5A">interface</text>
+<rect x="450" y="869" width="13" height="13" rx="3" fill="#EEEDFE" stroke="#534AB7"/><text x="468" y="880" font-size="10.5" fill="#5F5E5A">framework class</text>
+<rect x="572" y="869" width="13" height="13" rx="3" fill="#E1F5EE" stroke="#0F6E56"/><text x="590" y="880" font-size="10.5" fill="#5F5E5A">new: DTO/ctx</text>
+<text x="40" y="906" font-size="10.5" fill="#5F5E5A">Sotto al nome: il package. Esterno = LangGraph (giallo). Errore = rosso. Utente = corallo.</text>
+</svg>

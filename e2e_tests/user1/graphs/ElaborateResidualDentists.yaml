@@ -1,0 +1,36 @@
+name: ElaborateResidualDentists
+description: Elaborazione dei nominativi residui dei dentisti (loop riga-per-riga su un foglio)
+version: 1
+
+# Nessun campo dichiarato: tutto il flusso vive in execution_data (auto-iniettato).
+state: {}
+
+nodes:
+  GS_Reader:          { agent: SheetReader }      # L0: legge le righe di input
+  LoopManager:        { agent: LoopManager }      # L0: avanza alla riga successiva
+  WebExtract:         { agent: TavilyExtract }    # L0: estrazione web (Tavily)
+  AIExtractor:        { agent: AIExtractor }      # L3: LLM, estrae i dati
+  AIAddressFormatter: { agent: AIFormatter }      # L3: LLM, formatta l'indirizzo
+  GS_Writer:          { agent: SheetWriter }      # L0: scrive la riga elaborata
+
+edges:
+  - { from: START, to: GS_Reader }
+
+  - from: GS_Reader
+    router: RowExistenceRouter        # ci sono righe da elaborare?
+    targets: [LoopManager, END]
+
+  - from: LoopManager
+    router: LoopRouter                # c'è una riga corrente da processare?
+    targets: [WebExtract, END]
+
+  - from: WebExtract
+    router: ExtractionExistRouter     # l'estrazione web ha prodotto qualcosa?
+    targets: [AIExtractor, LoopManager]
+
+  - from: AIExtractor
+    router: AIResultCheckRouter       # il risultato dell'AI è valido?
+    targets: [AIAddressFormatter, LoopManager]
+
+  - { from: AIAddressFormatter, to: GS_Writer }
+  - { from: GS_Writer, to: LoopManager }

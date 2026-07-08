@@ -1,0 +1,141 @@
+<svg viewBox="0 0 1300 760" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>scaffold — class diagram</title>
+<desc>Il package scaffold: un GENERATORE di codice. main() (CLI) crea ProjectScaffolder, che legge le costanti-template di project_templates e scrive lo scheletro di un progetto utente (agents/routers/tools/graphs + PlatformManager.py). Non importa il runtime, non sovrascrive.</desc>
+<defs>
+<marker id="tri" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L12,6 L1,11 Z" fill="#ffffff" stroke="#444441" stroke-width="1.2"/></marker>
+<marker id="vee" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#5F5E5A" stroke-width="1.4"/></marker>
+</defs>
+<rect x="0" y="0" width="1300" height="760" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">scaffold · generatore del progetto utente — class diagram</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">È un <tspan font-weight="700">code generator</tspan>: scrive i file che l'utente terrà nel proprio repo. NON importa il runtime del framework e NON sovrascrive file esistenti (ri-eseguibile). Seme del futuro <tspan font-style="italic">agent-platform new</tspan>.</text>
+
+<!-- ===== arrows ===== -->
+<line x1="340" y1="134" x2="396" y2="134" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="344" y="128" font-size="9.5" font-style="italic" fill="#5F5E5A">crea · scaffold()</text>
+<line x1="730" y1="130" x2="786" y2="130" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="734" y="124" font-size="9.5" font-style="italic" fill="#5F5E5A">legge costanti</text>
+<line x1="565" y1="226" x2="565" y2="288" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="571" y="262" font-size="9.5" font-style="italic" fill="#5F5E5A">scrive (se assente)</text>
+
+<!-- ===== main() ===== -->
+<rect x="60" y="76" width="280" height="116" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="200" y="92" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«fn · CLI»</text>
+<text x="200" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">main(argv)</text>
+<text x="200" y="125" text-anchor="middle" font-size="10" fill="#888780">scaffold.__main__</text>
+<line x1="68" y1="133" x2="332" y2="133" stroke="#5F5E5A" stroke-width="1"/>
+<text x="72" y="151" font-size="10.5" fill="#2C2C2A">python -m agent_platform.scaffold</text>
+<text x="72" y="168" font-size="10.5" fill="#2C2C2A">[TARGET_DIR] [PROJECT_NAME]</text>
+<text x="72" y="185" font-size="10" font-style="italic" fill="#888780">stampa i file creati</text>
+
+<!-- ===== ProjectScaffolder ===== -->
+<rect x="400" y="76" width="330" height="150" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="565" y="92" text-anchor="middle" font-size="10.5" font-style="italic" fill="#534AB7">«class»</text>
+<text x="565" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#26215C">ProjectScaffolder</text>
+<text x="565" y="125" text-anchor="middle" font-size="10" fill="#7F77DD">scaffold</text>
+<line x1="408" y1="133" x2="722" y2="133" stroke="#534AB7" stroke-width="1"/>
+<text x="412" y="151" font-size="11" fill="#26215C">- _target_dir  - _project_name</text>
+<text x="412" y="169" font-size="11" fill="#26215C">+ scaffold() → list[Path]</text>
+<text x="412" y="187" font-size="11" fill="#26215C">_planned_files · _render</text>
+<text x="412" y="205" font-size="11" fill="#26215C">_write_if_absent (mai sovrascrive)</text>
+<text x="412" y="221" font-size="10" font-style="italic" fill="#7F77DD">_render: sostituisce __PROJECT_NAME__</text>
+
+<!-- ===== project_templates ===== -->
+<rect x="790" y="76" width="430" height="168" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="1005" y="92" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">«module»</text>
+<text x="1005" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">project_templates</text>
+<text x="1005" y="125" text-anchor="middle" font-size="10" fill="#888780">scaffold</text>
+<line x1="798" y1="133" x2="1212" y2="133" stroke="#5F5E5A" stroke-width="1"/>
+<text x="802" y="151" font-size="10.5" fill="#2C2C2A">costanti-template (stringhe):</text>
+<text x="802" y="168" font-size="10.5" fill="#2C2C2A">COUNTER_NODE · BASIC_WORKER · HOOKED_WORKER</text>
+<text x="802" y="185" font-size="10.5" fill="#2C2C2A">SHAPING_WORKER · JUDGE_AGENT · QUALITY_ROUTER</text>
+<text x="802" y="202" font-size="10.5" fill="#2C2C2A">GRAPH_YAML · PLATFORM_MANAGER · ENV_EXAMPLE</text>
+<text x="802" y="219" font-size="10.5" fill="#2C2C2A">README · *_INIT · PROJECT_NAME_PLACEHOLDER</text>
+<text x="802" y="237" font-size="10" font-style="italic" fill="#888780">una stringa per ogni file emesso</text>
+
+<!-- ===== generated project panel ===== -->
+<rect x="60" y="290" width="1160" height="420" rx="8" fill="#FFF8F4" stroke="#993C1D" stroke-width="1.2" stroke-dasharray="3 4"/>
+<text x="80" y="312" font-size="11.5" font-weight="700" fill="#993C1D">progetto utente generato — scheletro ri-eseguibile (layout uguale a un repo reale)</text>
+
+<!-- agents row -->
+<rect x="80" y="328" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="180" y="345" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«agent · L0»</text>
+<text x="180" y="362" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">CounterNode</text>
+<text x="180" y="378" text-anchor="middle" font-size="9" fill="#D85A30">agents/  (no LLM)</text>
+<rect x="300" y="328" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="400" y="345" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«agent · L1»</text>
+<text x="400" y="362" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">BasicWorker</text>
+<text x="400" y="378" text-anchor="middle" font-size="9" fill="#D85A30">agents/  (config-only)</text>
+<rect x="520" y="328" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="620" y="345" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«agent · L2»</text>
+<text x="620" y="362" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">HookedWorker</text>
+<text x="620" y="378" text-anchor="middle" font-size="9" fill="#D85A30">agents/  (hook)</text>
+<rect x="740" y="328" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="840" y="345" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«agent · L3»</text>
+<text x="840" y="362" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">ShapingWorker</text>
+<text x="840" y="378" text-anchor="middle" font-size="9" fill="#D85A30">agents/  (I/O custom)</text>
+<rect x="960" y="328" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="1060" y="345" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«agent»</text>
+<text x="1060" y="362" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">JudgeAgent</text>
+<text x="1060" y="378" text-anchor="middle" font-size="9" fill="#D85A30">agents/  (quality loop)</text>
+
+<!-- routers / config row -->
+<rect x="80" y="404" width="200" height="62" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="180" y="421" text-anchor="middle" font-size="9.5" font-style="italic" fill="#993C1D">«router»</text>
+<text x="180" y="438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C">QualityRouter</text>
+<text x="180" y="454" text-anchor="middle" font-size="9" fill="#D85A30">routers/</text>
+<rect x="300" y="404" width="200" height="62" rx="6" fill="#F4F4F2" stroke="#B8B6AE" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="400" y="421" text-anchor="middle" font-size="9.5" font-style="italic" fill="#8C8A82">«vuoto»</text>
+<text x="400" y="438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#5A5852">tools/</text>
+<text x="400" y="454" text-anchor="middle" font-size="9" fill="#A6A49C">init pronto, da riempire</text>
+<rect x="520" y="404" width="200" height="62" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
+<text x="620" y="421" text-anchor="middle" font-size="9.5" font-style="italic" fill="#0F6E56">«yaml»</text>
+<text x="620" y="438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#04342C">MyGraph.yaml</text>
+<text x="620" y="454" text-anchor="middle" font-size="9" fill="#1D9E75">graphs/  (topologia)</text>
+<rect x="740" y="404" width="200" height="62" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
+<text x="840" y="421" text-anchor="middle" font-size="9.5" font-style="italic" fill="#0F6E56">«config»</text>
+<text x="840" y="438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#04342C">.env.example</text>
+<text x="840" y="454" text-anchor="middle" font-size="9" fill="#1D9E75">copia in .env</text>
+<rect x="960" y="404" width="200" height="62" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.3"/>
+<text x="1060" y="421" text-anchor="middle" font-size="9.5" font-style="italic" fill="#0F6E56">«doc»</text>
+<text x="1060" y="438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#04342C">README.md</text>
+<text x="1060" y="454" text-anchor="middle" font-size="9" fill="#1D9E75">come si avvia</text>
+
+<!-- PlatformManager.py (composition root) -->
+<rect x="80" y="490" width="380" height="130" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.6"/>
+<text x="270" y="507" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«composition root»</text>
+<text x="270" y="525" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">PlatformManager.py</text>
+<text x="270" y="540" text-anchor="middle" font-size="9.5" fill="#7F77DD">radice del progetto</text>
+<line x1="88" y1="548" x2="452" y2="548" stroke="#534AB7" stroke-width="1"/>
+<text x="92" y="566" font-size="10.5" fill="#26215C">build_factory(): StaticRegistry +</text>
+<text x="92" y="582" font-size="10.5" fill="#26215C">YamlGraphProviderFactory + checkpointer</text>
+<text x="92" y="598" font-size="10.5" fill="#26215C">build_transport(): HttpTransport(port=8000)</text>
+<text x="92" y="614" font-size="10" font-style="italic" fill="#7F77DD">qui l'utente registra i nomi dei nodi/router</text>
+
+<!-- AbstractPlatformManager (boundary) -->
+<line x1="460" y1="540" x2="498" y2="540" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<text x="462" y="534" font-size="9" font-style="italic" fill="#5F5E5A">estende</text>
+<rect x="500" y="490" width="340" height="100" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="670" y="506" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · confine»</text>
+<text x="670" y="524" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">AbstractPlatformManager</text>
+<text x="670" y="539" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.platform</text>
+<line x1="508" y1="547" x2="832" y2="547" stroke="#534AB7" stroke-width="1"/>
+<text x="512" y="565" font-size="10.5" fill="#26215C">run() (template) · build_factory/build_transport</text>
+<text x="512" y="581" font-size="10" font-style="italic" fill="#7F77DD">vedi diagramma activation-sequence</text>
+
+<!-- wiring note -->
+<rect x="860" y="490" width="340" height="130" rx="6" fill="#F4FBF8" stroke="#0F6E56" stroke-width="1.1"/>
+<text x="872" y="508" font-size="10" font-weight="700" fill="#0F6E56">l'output ri-aggancia tutto il framework</text>
+<text x="872" y="526" font-size="9.5" fill="#04342C">Il PlatformManager.py generato importa e cabla:</text>
+<text x="872" y="541" font-size="9.5" fill="#04342C">• core (platform/provider/registry)</text>
+<text x="872" y="556" font-size="9.5" fill="#04342C">• persistence (Memory/Postgres checkpointer)</text>
+<text x="872" y="571" font-size="9.5" fill="#04342C">• connection (HttpTransport)</text>
+<text x="872" y="588" font-size="9.5" font-style="italic" fill="#1D9E75">gli agenti generati seguono la scala L0–L3</text>
+<text x="872" y="603" font-size="9.5" font-style="italic" fill="#1D9E75">(vedi node-ladder).</text>
+
+<!-- ===== legend ===== -->
+<line x1="60" y1="734" x2="76" y2="734" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<text x="84" y="738" font-size="10.5" fill="#5F5E5A">extends</text>
+<line x1="160" y1="734" x2="176" y2="734" stroke="#5F5E5A" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#vee)"/>
+<text x="184" y="738" font-size="10.5" fill="#5F5E5A">crea / legge / scrive</text>
+<text x="340" y="738" font-size="10.5" font-style="italic" fill="#888780">Il generatore conosce solo stringhe (project_templates): non importa il runtime, quindi può girare in una cartella vuota.</text>
+</svg>

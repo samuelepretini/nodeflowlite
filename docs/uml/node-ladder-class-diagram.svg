@@ -1,0 +1,171 @@
+<svg viewBox="0 0 1400 904" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>Scala dei nodi L0–L3 — dal nodo utente alla sua gerarchia</title>
+<desc>Una colonna per livello (L0/L1/L2/L3): in basso il nodo implementato dall'utente, sopra l'intera catena di ereditarietà/implementazione fino a NodeInterface, ripetuta per colonna. Freccia continua = extends, tratteggiata = implements.</desc>
+<defs>
+<marker id="tri" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L12,6 L1,11 Z" fill="#ffffff" stroke="#444441" stroke-width="1.2"/></marker>
+</defs>
+<rect x="0" y="0" width="1400" height="904" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">Scala dei nodi L0–L3 — dal nodo utente (in basso) alla sua gerarchia (in alto)</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">Una colonna per livello. Si legge dal basso (il TUO nodo) verso l'alto (cosa eredita). Le classi comuni si ripetono di proposito. <tspan font-style="italic">——▷ extends · - - ▷ implements</tspan>.</text>
+
+<!-- lanes -->
+<rect x="52" y="76" width="296" height="776" rx="8" fill="#F8F7F3" stroke="#D9D7CF" stroke-width="1" stroke-dasharray="3 4"/>
+<rect x="372" y="76" width="296" height="776" rx="8" fill="#F8F7F3" stroke="#D9D7CF" stroke-width="1" stroke-dasharray="3 4"/>
+<rect x="692" y="76" width="296" height="776" rx="8" fill="#F8F7F3" stroke="#D9D7CF" stroke-width="1" stroke-dasharray="3 4"/>
+<rect x="1012" y="76" width="296" height="776" rx="8" fill="#F8F7F3" stroke="#D9D7CF" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="200" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="#7A786F">L0 · nodo NON-LLM</text>
+<text x="520" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="#7A786F">L1 · agente LLM (config-only)</text>
+<text x="840" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="#7A786F">L2 · agente LLM + hook</text>
+<text x="1160" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="#7A786F">L3 · agente LLM + I/O custom</text>
+
+<!-- ================= arrows ================= -->
+<!-- L0 -->
+<line x1="200" y1="656" x2="200" y2="630" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<line x1="200" y1="540" x2="200" y2="514" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<!-- L1 -->
+<line x1="520" y1="656" x2="520" y2="630" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<line x1="520" y1="540" x2="520" y2="514" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<!-- L2 -->
+<line x1="840" y1="656" x2="840" y2="630" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<line x1="840" y1="540" x2="840" y2="514" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<line x1="840" y1="424" x2="840" y2="402" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<!-- L3 -->
+<line x1="1160" y1="656" x2="1160" y2="630" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<line x1="1160" y1="540" x2="1160" y2="514" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+
+<!-- ================= L0 column ================= -->
+<!-- NodeInterface @B -->
+<rect x="68" y="426" width="264" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="200" y="443" text-anchor="middle" font-size="10" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="200" y="460" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2C2C2A">NodeInterface</text>
+<text x="200" y="474" text-anchor="middle" font-size="9.5" fill="#888780">core.interface</text>
+<line x1="76" y1="482" x2="324" y2="482" stroke="#5F5E5A" stroke-width="1"/>
+<text x="80" y="500" font-size="10.5" fill="#2C2C2A">+ invoke(ctx) → Mapping</text>
+<!-- AbstractNode @A -->
+<rect x="68" y="540" width="264" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="200" y="557" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · L0»</text>
+<text x="200" y="574" text-anchor="middle" font-size="12.5" font-weight="700" fill="#26215C">AbstractNode</text>
+<text x="200" y="588" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.abstract</text>
+<line x1="76" y1="596" x2="324" y2="596" stroke="#534AB7" stroke-width="1"/>
+<text x="80" y="613" font-size="10" fill="#26215C">invoke(ctx) sealed → run(ctx)</text>
+<text x="80" y="625" font-size="10" fill="#26215C">run(ctx) astratto · LOAD_PREVIOUS</text>
+<!-- SheetReader @U -->
+<rect x="68" y="656" width="264" height="96" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.6"/>
+<text x="200" y="673" text-anchor="middle" font-size="10" font-style="italic" fill="#993C1D">«user · L0»</text>
+<text x="200" y="690" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4A1B0C">SheetReader</text>
+<text x="200" y="704" text-anchor="middle" font-size="9.5" fill="#D85A30">e2e_tests/user1/agents</text>
+<line x1="76" y1="712" x2="324" y2="712" stroke="#993C1D" stroke-width="1"/>
+<text x="80" y="729" font-size="10" fill="#4A1B0C"># run(ctx) — I/O non-LLM</text>
+<text x="80" y="744" font-size="9.5" font-style="italic" fill="#D85A30">scrive ctx.data, ritorna update</text>
+
+<!-- ================= L1 column ================= -->
+<rect x="388" y="426" width="264" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="520" y="443" text-anchor="middle" font-size="10" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="520" y="460" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2C2C2A">NodeInterface</text>
+<text x="520" y="474" text-anchor="middle" font-size="9.5" fill="#888780">core.interface</text>
+<line x1="396" y1="482" x2="644" y2="482" stroke="#5F5E5A" stroke-width="1"/>
+<text x="400" y="500" font-size="10.5" fill="#2C2C2A">+ invoke(ctx) → Mapping</text>
+<rect x="388" y="540" width="264" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="520" y="557" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · L1»</text>
+<text x="520" y="574" text-anchor="middle" font-size="12" font-weight="700" fill="#26215C">AbstractCommonNode</text>
+<text x="520" y="588" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.abstract</text>
+<line x1="396" y1="596" x2="644" y2="596" stroke="#534AB7" stroke-width="1"/>
+<text x="400" y="613" font-size="10" fill="#26215C">invoke(ctx) sealed → ai_invoke</text>
+<text x="400" y="625" font-size="10" fill="#26215C">on_result / build_prompt (default)</text>
+<rect x="388" y="656" width="264" height="96" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.6"/>
+<text x="520" y="673" text-anchor="middle" font-size="10" font-style="italic" fill="#993C1D">«user · L1»</text>
+<text x="520" y="690" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4A1B0C">WorkerAgent</text>
+<text x="520" y="704" text-anchor="middle" font-size="9.5" fill="#D85A30">e2e_tests/user1/agents</text>
+<line x1="396" y1="712" x2="644" y2="712" stroke="#993C1D" stroke-width="1"/>
+<text x="400" y="729" font-size="10" fill="#4A1B0C">solo ClassVar: MODEL · SYSTEM_PROMPT</text>
+<text x="400" y="744" font-size="9.5" font-style="italic" fill="#D85A30">nessun override (config-only)</text>
+
+<!-- ================= L2 column ================= -->
+<rect x="708" y="314" width="264" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="840" y="331" text-anchor="middle" font-size="10" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="840" y="348" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2C2C2A">NodeInterface</text>
+<text x="840" y="362" text-anchor="middle" font-size="9.5" fill="#888780">core.interface</text>
+<line x1="716" y1="370" x2="964" y2="370" stroke="#5F5E5A" stroke-width="1"/>
+<text x="720" y="388" font-size="10.5" fill="#2C2C2A">+ invoke(ctx) → Mapping</text>
+<rect x="708" y="426" width="264" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="840" y="443" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · L1»</text>
+<text x="840" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#26215C">AbstractCommonNode</text>
+<text x="840" y="474" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.abstract</text>
+<line x1="716" y1="482" x2="964" y2="482" stroke="#534AB7" stroke-width="1"/>
+<text x="720" y="500" font-size="10" fill="#26215C">ai_invoke · on_result · build_prompt</text>
+<rect x="708" y="540" width="264" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="840" y="557" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · L2»</text>
+<text x="840" y="574" text-anchor="middle" font-size="12" font-weight="700" fill="#26215C">AbstractHookedNode</text>
+<text x="840" y="588" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.abstract</text>
+<line x1="716" y1="596" x2="964" y2="596" stroke="#534AB7" stroke-width="1"/>
+<text x="720" y="613" font-size="10" fill="#26215C">invoke(ctx) template:</text>
+<text x="720" y="625" font-size="10" fill="#26215C">before → super → after · on_error</text>
+<rect x="708" y="656" width="264" height="96" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.6"/>
+<text x="840" y="673" text-anchor="middle" font-size="10" font-style="italic" fill="#993C1D">«user · L2»</text>
+<text x="840" y="690" text-anchor="middle" font-size="12" font-weight="700" fill="#4A1B0C">ResilientWorkerAgent</text>
+<text x="840" y="704" text-anchor="middle" font-size="9.5" fill="#D85A30">e2e_tests/user1/agents</text>
+<line x1="716" y1="712" x2="964" y2="712" stroke="#993C1D" stroke-width="1"/>
+<text x="720" y="729" font-size="10" fill="#4A1B0C"># before_invoke / after_invoke</text>
+<text x="720" y="744" font-size="10" fill="#4A1B0C"># on_error (ctx, error)</text>
+
+<!-- ================= L3 column ================= -->
+<rect x="1028" y="426" width="264" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.5"/>
+<text x="1160" y="443" text-anchor="middle" font-size="10" font-style="italic" fill="#5F5E5A">«interface»</text>
+<text x="1160" y="460" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2C2C2A">NodeInterface</text>
+<text x="1160" y="474" text-anchor="middle" font-size="9.5" fill="#888780">core.interface</text>
+<line x1="1036" y1="482" x2="1284" y2="482" stroke="#5F5E5A" stroke-width="1"/>
+<text x="1040" y="500" font-size="10.5" fill="#2C2C2A">+ invoke(ctx) → Mapping</text>
+<rect x="1028" y="540" width="264" height="88" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text x="1160" y="557" text-anchor="middle" font-size="10" font-style="italic" fill="#534AB7">«abstract · L1»</text>
+<text x="1160" y="574" text-anchor="middle" font-size="12" font-weight="700" fill="#26215C">AbstractCommonNode</text>
+<text x="1160" y="588" text-anchor="middle" font-size="9.5" fill="#7F77DD">core.abstract  (stessa base di L1)</text>
+<line x1="1036" y1="596" x2="1284" y2="596" stroke="#534AB7" stroke-width="1"/>
+<text x="1040" y="613" font-size="10" fill="#26215C">on_result / build_prompt</text>
+<text x="1040" y="625" font-size="10" fill="#26215C">sono extension point ridefinibili</text>
+<rect x="1028" y="656" width="264" height="96" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1.6"/>
+<text x="1160" y="673" text-anchor="middle" font-size="10" font-style="italic" fill="#993C1D">«user · L3»</text>
+<text x="1160" y="690" text-anchor="middle" font-size="12" font-weight="700" fill="#4A1B0C">ManualWorkerAgent</text>
+<text x="1160" y="704" text-anchor="middle" font-size="9.5" fill="#D85A30">e2e_tests/user1/agents</text>
+<line x1="1036" y1="712" x2="1284" y2="712" stroke="#993C1D" stroke-width="1"/>
+<text x="1040" y="729" font-size="10" fill="#4A1B0C"># override on_result(ctx, result)</text>
+<text x="1040" y="744" font-size="9.5" font-style="italic" fill="#D85A30">(e/o build_prompt) — I/O custom</text>
+
+<!-- ================= purpose captions ================= -->
+<rect x="68" y="760" width="264" height="84" rx="6" fill="#FFFCF7" stroke="#E0C9BC" stroke-width="1.1"/>
+<text x="80" y="777" font-size="9.5" font-weight="700" fill="#A85A38">perché esiste</text>
+<text x="80" y="791" font-size="9.3" fill="#5A4A42">Nessuna IA: implementi run(ctx) e scrivi TU</text>
+<text x="80" y="803" font-size="9.3" fill="#5A4A42">tutta la logica (I/O, calcoli, glue del flusso).</text>
+<text x="80" y="815" font-size="9.3" fill="#5A4A42">Per passi deterministici: leggere/scrivere</text>
+<text x="80" y="827" font-size="9.3" fill="#5A4A42">dati, contare, orchestrare un loop.</text>
+
+<rect x="388" y="760" width="264" height="84" rx="6" fill="#FFFCF7" stroke="#E0C9BC" stroke-width="1.1"/>
+<text x="400" y="777" font-size="9.5" font-weight="700" fill="#A85A38">perché esiste</text>
+<text x="400" y="791" font-size="9.3" fill="#5A4A42">Usa l'IA. Solo configurazione (MODEL,</text>
+<text x="400" y="803" font-size="9.3" fill="#5A4A42">SYSTEM_PROMPT, TOOLS): è il framework a</text>
+<text x="400" y="815" font-size="9.3" fill="#5A4A42">fare la chiamata LLM. Zero codice di logica</text>
+<text x="400" y="827" font-size="9.3" fill="#5A4A42">— l'agente "standard", il caso più comune.</text>
+
+<rect x="708" y="760" width="264" height="84" rx="6" fill="#FFFCF7" stroke="#E0C9BC" stroke-width="1.1"/>
+<text x="720" y="777" font-size="9.5" font-weight="700" fill="#A85A38">perché esiste</text>
+<text x="720" y="791" font-size="9.3" fill="#5A4A42">Usa l'IA + vuoi ganci attorno alla chiamata:</text>
+<text x="720" y="803" font-size="9.3" fill="#5A4A42">preparare/validare prima (before), trasformare</text>
+<text x="720" y="815" font-size="9.3" fill="#5A4A42">dopo (after), gestire l'errore (on_error).</text>
+<text x="720" y="827" font-size="9.3" fill="#5A4A42">Per robustezza, retry, logging/telemetria.</text>
+
+<rect x="1028" y="760" width="264" height="84" rx="6" fill="#FFFCF7" stroke="#E0C9BC" stroke-width="1.1"/>
+<text x="1040" y="777" font-size="9.5" font-weight="700" fill="#A85A38">perché esiste</text>
+<text x="1040" y="791" font-size="9.3" fill="#5A4A42">Usa l'IA ma vuoi controllare input/output:</text>
+<text x="1040" y="803" font-size="9.3" fill="#5A4A42">override di build_prompt (come costruisci il</text>
+<text x="1040" y="815" font-size="9.3" fill="#5A4A42">prompt) e/o on_result (come leggi la risposta).</text>
+<text x="1040" y="827" font-size="9.3" fill="#5A4A42">Quando la configurazione di L1 non basta.</text>
+
+<!-- ================= legend + notes ================= -->
+<line x1="52" y1="866" x2="80" y2="866" stroke="#444441" stroke-width="1.3" marker-end="url(#tri)"/>
+<text x="88" y="870" font-size="10.5" fill="#5F5E5A">extends (classe)</text>
+<line x1="210" y1="866" x2="238" y2="866" stroke="#444441" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+<text x="246" y="870" font-size="10.5" fill="#5F5E5A">implements (interfaccia)</text>
+<rect x="410" y="859" width="14" height="13" rx="3" fill="#F1EFE8" stroke="#5F5E5A"/><text x="430" y="870" font-size="10.5" fill="#5F5E5A">interface</text>
+<rect x="500" y="859" width="14" height="13" rx="3" fill="#EEEDFE" stroke="#534AB7"/><text x="520" y="870" font-size="10.5" fill="#5F5E5A">astratta (framework)</text>
+<rect x="640" y="859" width="14" height="13" rx="3" fill="#FAECE7" stroke="#993C1D"/><text x="660" y="870" font-size="10.5" fill="#5F5E5A">nodo utente</text>
+<text x="52" y="892" font-size="10.5" font-style="italic" fill="#888780">L1 e L3 hanno la STESSA catena: cambia solo che L3 fa override di on_result/build_prompt. · Si può anche implementare NodeInterface direttamente (es. AttemptsCounterNode), saltando la scala.</text>
+</svg>

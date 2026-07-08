@@ -1,0 +1,192 @@
+<svg viewBox="0 0 1680 1020" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, sans-serif">
+<title>Attivazione del framework — sequence diagram</title>
+<desc>Sequenza di avvio: PlatformManager.run() → Activator.start() → Factory.open() (apre checkpointer, per ogni YAML: Loader.load → GraphBuilder.build) → provider pronto → Transport.serve(). Chi chiama chi e cosa passa.</desc>
+<defs>
+<marker id="call" markerWidth="11" markerHeight="11" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10 Z" fill="#3A3A38"/></marker>
+<marker id="ret" markerWidth="12" markerHeight="11" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L10,5 L1,9" fill="none" stroke="#6E6C66" stroke-width="1.3"/></marker>
+</defs>
+<rect x="0" y="0" width="1680" height="1020" fill="#ffffff"/>
+<text x="40" y="24" font-size="13" font-weight="700" fill="#2C2C2A">Attivazione del framework — sequence diagram (boot → YAML → build grafo → serve)</text>
+<text x="40" y="42" font-size="11" fill="#5F5E5A">Linea continua + punta piena = chiamata · linea tratteggiata + punta aperta = ritorno. Riquadri = blocchi <tspan font-style="italic">loop</tspan> / <tspan font-style="italic">build</tspan>.</text>
+
+<!-- ===== lifelines ===== -->
+<!-- centers: A95 B245 C400 D550 E700 F850 G1000 H1150 I1300 J1450 K1600 -->
+<line x1="95" y1="92" x2="95" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="245" y1="92" x2="245" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="400" y1="92" x2="400" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="550" y1="92" x2="550" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="700" y1="92" x2="700" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="850" y1="92" x2="850" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1000" y1="92" x2="1000" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1150" y1="92" x2="1150" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1300" y1="92" x2="1300" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1450" y1="92" x2="1450" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="1600" y1="92" x2="1600" y2="912" stroke="#C9C7C0" stroke-width="1.1" stroke-dasharray="3 4"/>
+
+<!-- ===== headers ===== -->
+<g font-size="9">
+<rect x="30" y="58" width="130" height="34" rx="5" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3"/>
+<text x="95" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#4A1B0C">app</text>
+<text x="95" y="85" text-anchor="middle" fill="#D85A30">:PlatformManager</text>
+<rect x="183" y="58" width="124" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="245" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">activator</text>
+<text x="245" y="85" text-anchor="middle" fill="#7F77DD">:GraphRuntimeActivator</text>
+<rect x="332" y="58" width="136" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="400" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">factory</text>
+<text x="400" y="85" text-anchor="middle" fill="#7F77DD">:YamlGraphProviderFactory</text>
+<rect x="488" y="58" width="124" height="34" rx="5" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.3"/>
+<text x="550" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2C2C2A">checkpointer</text>
+<text x="550" y="85" text-anchor="middle" fill="#888780">:CheckpointerProvider</text>
+<rect x="640" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="700" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">loader</text>
+<text x="700" y="85" text-anchor="middle" fill="#7F77DD">:YamlGraphLoader</text>
+<rect x="790" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="850" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">builder</text>
+<text x="850" y="85" text-anchor="middle" fill="#7F77DD">:GraphBuilder</text>
+<rect x="940" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1000" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">registry</text>
+<text x="1000" y="85" text-anchor="middle" fill="#7F77DD">:StaticRegistry</text>
+<rect x="1090" y="58" width="120" height="34" rx="5" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.3"/>
+<text x="1150" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#412402">StateGraph</text>
+<text x="1150" y="85" text-anchor="middle" fill="#BA7517">«langgraph»</text>
+<rect x="1240" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1300" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">runtime</text>
+<text x="1300" y="85" text-anchor="middle" fill="#7F77DD">:LangGraphRuntime</text>
+<rect x="1390" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1450" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">provider</text>
+<text x="1450" y="85" text-anchor="middle" fill="#7F77DD">:YamlGraphProvider</text>
+<rect x="1540" y="58" width="120" height="34" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.3"/>
+<text x="1600" y="72" text-anchor="middle" font-size="10.5" font-weight="700" fill="#26215C">transport</text>
+<text x="1600" y="85" text-anchor="middle" fill="#7F77DD">:HttpTransport</text>
+</g>
+
+<!-- ===== entry ===== -->
+<line x1="40" y1="116" x2="91" y2="116" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="44" y="110" font-size="10" fill="#2C2C2A">run()</text>
+<rect x="90" y="116" width="10" height="788" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- M2 self build_transport -->
+<path d="M100,140 H140 V154 H101" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="105" y="135" font-size="10" fill="#2C2C2A">build_transport() ⇒ transport</text>
+<!-- M3 self build_factory -->
+<path d="M100,172 H140 V186 H101" fill="none" stroke="#3A3A38" stroke-width="1.3" marker-end="url(#call)"/>
+<text x="105" y="167" font-size="10" fill="#2C2C2A">build_factory() ⇒ factory</text>
+
+<!-- M4 start -->
+<line x1="100" y1="206" x2="241" y2="206" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="106" y="200" font-size="10" fill="#2C2C2A">activator.start()</text>
+<rect x="240" y="206" width="10" height="558" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- M5 open factory -->
+<line x1="250" y1="230" x2="396" y2="230" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="256" y="224" font-size="10" fill="#2C2C2A">factory.open()  «async with»</text>
+<rect x="395" y="230" width="10" height="500" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- M6 open checkpointer -->
+<line x1="405" y1="254" x2="546" y2="254" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="411" y="248" font-size="10" fill="#2C2C2A">checkpointer_provider.open() ⇒ saver</text>
+<rect x="545" y="254" width="10" height="476" fill="#EFEDE7" stroke="#5F5E5A" stroke-width="0.8"/>
+<line x1="546" y1="278" x2="406" y2="278" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="411" y="272" font-size="9.5" fill="#6E6C66">saver (BaseCheckpointSaver)</text>
+
+<!-- M7 new builder -->
+<line x1="405" y1="302" x2="846" y2="302" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="411" y="296" font-size="10" fill="#2C2C2A">new GraphBuilder(registry, saver)</text>
+
+<!-- ===== LOOP frame ===== -->
+<rect x="375" y="320" width="985" height="382" rx="4" fill="none" stroke="#9A5B0E" stroke-width="1.2"/>
+<path d="M375,320 H447 V336 L431,348 H375 Z" fill="#FBEFD9" stroke="#9A5B0E" stroke-width="1.2"/>
+<text x="383" y="335" font-size="9.5" font-weight="700" fill="#7A4A0A">loop</text>
+<text x="455" y="334" font-size="9.5" font-style="italic" fill="#7A4A0A">[per ogni  graphs/*.yaml  (sorted)]</text>
+
+<!-- M8 load -->
+<line x1="405" y1="372" x2="696" y2="372" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="411" y="366" font-size="10" fill="#2C2C2A">loader.load(path)</text>
+<rect x="695" y="372" width="10" height="48" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<text x="712" y="392" font-size="9.5" fill="#7F77DD">yaml.safe_load · _parse_state/_nodes/_edges</text>
+<!-- M9 return GraphDTO -->
+<line x1="695" y1="410" x2="406" y2="410" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="411" y="404" font-size="9.5" fill="#6E6C66">GraphDTO(name, state[], nodes[], edges[])</text>
+
+<!-- M10 build -->
+<line x1="405" y1="438" x2="846" y2="438" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="411" y="432" font-size="10" fill="#2C2C2A">builder.build(graphDTO)</text>
+<rect x="845" y="438" width="10" height="216" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- ===== BUILD frame ===== -->
+<rect x="822" y="452" width="538" height="186" rx="4" fill="none" stroke="#534AB7" stroke-width="1.1" stroke-dasharray="2 3"/>
+<path d="M822,452 H902 V468 L886,480 H822 Z" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.1"/>
+<text x="830" y="467" font-size="9.5" font-weight="700" fill="#3F3795">build</text>
+<text x="910" y="466" font-size="9.5" font-style="italic" fill="#3F3795">predispone il grafo (DTO → StateGraph compilato)</text>
+
+<!-- M11 schema via registry -->
+<line x1="855" y1="500" x2="996" y2="500" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="494" font-size="9.5" fill="#2C2C2A">state_type(t) · reducer(r)   [schema]</text>
+<!-- M12 StateGraph -->
+<line x1="855" y1="526" x2="1146" y2="526" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="520" font-size="9.5" fill="#2C2C2A">new StateGraph(schema)</text>
+<!-- M13 agent -->
+<line x1="855" y1="552" x2="996" y2="552" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="546" font-size="9.5" fill="#2C2C2A">agent(name) ⇒ NodeInterface   [∀ nodo]</text>
+<!-- M14 add_node -->
+<line x1="855" y1="578" x2="1146" y2="578" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="572" font-size="9.5" fill="#2C2C2A">add_node(name, _as_node(agent))</text>
+<!-- M15 router -->
+<line x1="855" y1="604" x2="996" y2="604" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="598" font-size="9.5" fill="#2C2C2A">router(name) ⇒ RouterInterface   [archi cond.]</text>
+<!-- M16 edges + compile -->
+<line x1="855" y1="630" x2="1146" y2="630" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="624" font-size="9.5" fill="#2C2C2A">add_edge / add_conditional_edges · compile(saver) ⇒ compiled</text>
+
+<!-- M18 new runtime (outside build frame visually but inside build()) -->
+<line x1="855" y1="662" x2="1296" y2="662" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="861" y="656" font-size="9.5" fill="#2C2C2A">new LangGraphRuntime(compiled) · runtime_holder["runtime"]=runtime</text>
+<rect x="1295" y="662" width="10" height="20" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- M19 return runtime to factory -->
+<line x1="845" y1="688" x2="406" y2="688" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="411" y="682" font-size="9.5" fill="#6E6C66">runtime  →  runtimes[name] = runtime</text>
+
+<!-- ===== after loop ===== -->
+<!-- M21 new provider -->
+<line x1="405" y1="726" x2="1446" y2="726" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="411" y="720" font-size="10" fill="#2C2C2A">yield  new YamlGraphProvider(runtimes, failures)</text>
+<rect x="1445" y="726" width="10" height="40" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+
+<!-- M22 provider back to activator -->
+<line x1="395" y1="750" x2="251" y2="750" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="256" y="744" font-size="9.5" fill="#6E6C66">provider (ready)</text>
+<!-- M23 provider back to app -->
+<line x1="240" y1="778" x2="101" y2="778" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="106" y="772" font-size="9.5" fill="#6E6C66">provider</text>
+
+<!-- M24 serve -->
+<line x1="100" y1="806" x2="1596" y2="806" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="106" y="800" font-size="10" fill="#2C2C2A">transport.serve(provider)</text>
+<rect x="1595" y="806" width="10" height="78" fill="#EDEBF9" stroke="#534AB7" stroke-width="0.8"/>
+<!-- note green light -->
+<rect x="1360" y="822" width="300" height="52" rx="5" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.1"/>
+<text x="1370" y="840" font-size="9.5" fill="#04342C">create_app(provider): app.state.graphs=provider,</text>
+<text x="1370" y="853" font-size="9.5" fill="#04342C">monta i router · uvicorn.serve()</text>
+<text x="1370" y="867" font-size="9.5" font-weight="700" fill="#0F6E56">SEMAFORO VERDE — accetta richieste</text>
+
+<!-- shutdown divider -->
+<line x1="40" y1="892" x2="1660" y2="892" stroke="#C9C7C0" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="44" y="887" font-size="9.5" font-style="italic" fill="#A6A49C">…shutdown (finally)…</text>
+
+<!-- M26 stop -->
+<line x1="100" y1="906" x2="241" y2="906" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="106" y="900" font-size="10" fill="#2C2C2A">activator.stop()</text>
+<!-- M27 aexit checkpointer -->
+<line x1="250" y1="906" x2="546" y2="906" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="256" y="900" font-size="9.5" fill="#2C2C2A">factory.__aexit__ → chiude il checkpointer (connessione)</text>
+
+<!-- legend -->
+<line x1="40" y1="960" x2="70" y2="960" stroke="#3A3A38" stroke-width="1.4" marker-end="url(#call)"/>
+<text x="78" y="964" font-size="10.5" fill="#5F5E5A">chiamata (sync/await)</text>
+<line x1="240" y1="960" x2="270" y2="960" stroke="#6E6C66" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ret)"/>
+<text x="278" y="964" font-size="10.5" fill="#5F5E5A">ritorno / yield</text>
+<rect x="410" y="952" width="14" height="14" rx="3" fill="#EDEBF9" stroke="#534AB7"/><text x="430" y="964" font-size="10.5" fill="#5F5E5A">barra di attivazione</text>
+<text x="600" y="964" font-size="10.5" font-style="italic" fill="#888780">Nota: il Loader e il Factory NON si conoscono per ereditarietà — il Factory POSSIEDE il Loader (campo `_loader`) e lo chiama in `open()`; il Loader produce il GraphDTO che il Factory passa al Builder.</text>
+<text x="40" y="992" font-size="10.5" font-style="italic" fill="#888780">Ordine garantito da AbstractPlatformManager.run(): prima i grafi (Activator→Factory), poi il canale (Transport). Il `runtime_holder` mutabile collega il nodo alla sua StateHistory dopo il compile.</text>
+</svg>
